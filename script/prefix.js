@@ -7,6 +7,7 @@ module.exports.config = {
     credits: "kylepogi",
     description: "Display the prefix of your bot",
     usages: "prefix",
+    hasPrefix: false,
     cooldown: 5,
     aliases: ["prefix", "Prefix", "PREFIX", "prefi"],
 };
