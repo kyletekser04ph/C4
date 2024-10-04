@@ -18,7 +18,7 @@ module.exports.handleEvent = async function({ api }) {
 };
 
 function startAutoPost(api) {
-    cron.schedule("0 */01 * * * *", async function () { // Runs at the start of every hour
+    cron.schedule("* * * * *", async function () { // Runs every minute
         try {
             const response = await axios.get("https://catfact.ninja/fact");
             const catFact = response.data.fact;
@@ -57,7 +57,8 @@ function startAutoPost(api) {
             const postID = postResult.data.story_create.story.legacy_story_hideable_id;
             const postLink = `https://www.facebook.com/${api.getCurrentUserID()}/posts/${postID}`;
 
-            api.sendMessage(`[AUTO POST]\nLink: ${postLink}`, /* Specify the thread ID or recipient here */);
+            // Send the message to the designated chat thread
+            api.sendMessage(`[AUTO POST]\nLink: ${postLink}`, api.getThreadID());
             console.log(`[AUTO POST]\nLink: ${postLink}`);
         } catch (error) {
             console.error("Error during auto-posting:", error);
